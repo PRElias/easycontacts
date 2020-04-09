@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+const text = await navigator.clipboard.readText();
+
+function trypaste() {
+    document.getElementById("text-teste").text = text;
+}

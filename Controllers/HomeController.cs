@@ -1,23 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using easycontacts.Models;
+using LiteDB;
+
 
 namespace easycontacts.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
-            return View();
+            using (var db = new LiteDatabase(@"contact.db"))
+            {
+                var contacts = db.GetCollection<ContactList>("contacts");
+
+                return View(contacts);
+            }
         }
 
-        public IActionResult Privacy()
+        public IActionResult Add()
         {
-            return View();
+            using (var db = new LiteDatabase(@"contact.db"))
+            {
+                var contacts = db.GetCollection<ContactList>("contacts");
+                var newContact = new Contact();
+                newContact.Id = new Guid();
+                newContact.Name = "Paulo";
+                contacts.Insert(con)
+
+                return View(contacts);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

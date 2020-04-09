@@ -2,7 +2,62 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model easycontacts.Models.ContactList
+
+<h1>Contatos</h1>
+
+<table class="table" id="contactsTable">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+
+            <th>
+                Foto
+            </th>
+            <th>
+                Conversar
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model.Contacts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => contact.Name)
+                </td>
+                <td>
+                    <img data-src="@Url.Content(contact.Photo)" class="img-fluid img-max lazy" />
+                </td>
+                <td>
+                    <a href='@ViewData["whatsappAPIURL"] + @contact.Phone' target="_blank">
+                        <span style="color: green;">
+                            <i class="fab fa-whatsapp"></i>
+                        </span>
+                    </a>
+                    <a href='@ViewData["SkypeURL"].ToString().Replace("#", @contact.Skype)' target="_blank">
+                        <span style="color: blue;">
+                            <i class="fab fa-skype"></i>
+                        </span>
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Detalhes" asp-route-id="@contact.Id">
+                        <span>
+                            <i class="far fa-edit"></i>
+                        </span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@* <textarea id="text-teste" onclick="trypaste()"></textarea> *@
