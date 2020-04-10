@@ -28,12 +28,13 @@
         <tbody>
             @foreach (var contact in Model)
             {
-                string showPhone = "block", showSkype = "block", showFacebook = "block", showYoutube = "block";
+                string showPhone = "block", showSkype = "block", showFacebook = "block", showYoutube = "block", showEmail = "block";
                 
                 if (string.IsNullOrEmpty(contact.Phone)){showPhone = " none";};
                 if (string.IsNullOrEmpty(contact.Skype)){showSkype = " none";};
                 if (string.IsNullOrEmpty(contact.Facebook)){showFacebook = " none";};
                 if (string.IsNullOrEmpty(contact.Youtube)){showYoutube = " none";};
+                if (string.IsNullOrEmpty(contact.Email)){showEmail = " none";};
 
             <tr>
                 <td>
@@ -54,14 +55,19 @@
                                 <i class="fab fa-skype"></i>
                             </span>
                         </a>
-                        <a href='@Configuration["FacebookURL"].ToString().Replace("#", @contact.Facebook)' target="_blank" style="display: @showFacebook">
+                        <a href='@Configuration["FacebookURL"]@contact.Facebook' target="_blank" style="display: @showFacebook">
                             <span style="color: blue;">
                                 <i class="fab fa-facebook"></i>
                             </span>
                         </a>
-                        <a href='@Configuration["YoutubeURL"].ToString().Replace("#", @contact.Youtube)' target="_blank" style="display: @showYoutube">
-                            <span style="color: blue;">
+                        <a href='@Configuration["YoutubeURL"]@contact.Youtube' target="_blank" style="display: @showYoutube">
+                            <span style="color: red;">
                                 <i class="fab fa-youtube"></i>
+                            </span>
+                        </a>
+                        <a href='mailto:@contact.Email' target="_blank" style="display: @showEmail">
+                            <span style="color: red;">
+                                <i class="fab fa-email"></i>
                             </span>
                         </a>
                     </div>
