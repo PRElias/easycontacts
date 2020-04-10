@@ -7,8 +7,9 @@ namespace easycontacts.Repositories
     {
         IEnumerable<Contact> FindAll();
         Contact FindOne(int id);
-        int Insert(Contact contact);
-        bool Update(Contact contact);
+        // int Insert(Contact contact);
+        // bool Update(Contact contact);
         bool Delete(int id);
+        bool Upsert(Contact contact);
     }
 }

@@ -17,10 +17,10 @@ namespace easycontacts.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(Contact contact, [FromServices] IDatabase db)
         {
-            db.Insert(contact);
+            db.Upsert(contact);
             return RedirectToAction("Index");
         }
 
@@ -30,10 +30,17 @@ namespace easycontacts.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Details(int id, [FromServices] IDatabase db)
+        public IActionResult Edit(int id, [FromServices] IDatabase db)
         {
             Contact contact = db.FindOne(id);
             return View(contact);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Edit(Contact contact, [FromServices] IDatabase db)
+        {
+            db.Upsert(contact);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -59,7 +59,7 @@
                                 <i class="fab fa-facebook"></i>
                             </span>
                         </a>
-                        <a href='@Configuration["FacebookURL"].ToString().Replace("#", @contact.Youtube)' target="_blank" style="display: @showYoutube">
+                        <a href='@Configuration["YoutubeURL"].ToString().Replace("#", @contact.Youtube)' target="_blank" style="display: @showYoutube">
                             <span style="color: blue;">
                                 <i class="fab fa-youtube"></i>
                             </span>
@@ -67,7 +67,7 @@
                     </div>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@contact.Id">
+                    <a asp-action="Edit" asp-route-id="@contact.Id">
                         <span>
                             <i class="far fa-edit"></i>
                         </span>

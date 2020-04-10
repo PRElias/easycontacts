@@ -23,21 +23,26 @@ namespace easycontacts.Repositories
             return database.GetCollection<Contact>().Find(x => x.Id == id).FirstOrDefault();
         }
     
-        public int Insert(Contact contact)
-        {
-            return database.GetCollection<Contact>().Insert(contact);
-        }
+        // public int Insert(Contact contact)
+        // {
+        //     return database.GetCollection<Contact>().Insert(contact);
+        // }
     
-        public bool Update(Contact contact)
-        {
-            return database.GetCollection<Contact>().Update(contact);
-        }
+        // public bool Update(Contact contact)
+        // {
+        //     return database.GetCollection<Contact>().Update(contact);
+        // }
     
         public bool Delete(int id)
         {
             var contact = database.GetCollection<Contact>().Find(x => x.Id == id).FirstOrDefault();
             contact.IsDeleted = true;
-            return Update(contact);
+            return Upsert(contact);
+        }
+
+        public bool Upsert(Contact contact)
+        {
+            return database.GetCollection<Contact>().Upsert(contact);
         }
     }
 }
