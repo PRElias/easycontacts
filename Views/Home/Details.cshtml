@@ -1,0 +1,60 @@
+@model Contact
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{
+ViewData["Title"] = "Contato";
+}
+
+<form>
+  <div class="form-horizontal">
+    <div class="form-group row">
+      <label for="staticSystem" class="col-sm-2 col-form-label">Id</label>
+      <div class="col-sm-10">
+        <input type="text" readonly class="form-control" id="staticSystem" value="@Model.Id" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="staticRom" class="col-sm-2 col-form-label">Nome</label>
+      <div class="col-sm-10">
+        <input type="text" readonly class="form-control" id="staticRom" value="@Model.Name" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Image" class="col-sm-2 col-form-label">Foto</label>
+    <div class="col-sm-10">
+      <img src="@Url.Content(Model.Photo)" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputDesc" class="col-sm-2 col-form-label">Observações</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" id="inputDesc" rows="10">@Model.Annotations</textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputRating" class="col-sm-2 col-form-label">Celular</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputRating" value="@Model.Phone">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputReleaseDate" class="col-sm-2 col-form-label">Skype</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputReleaseDate" value="@Model.Skype">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputDeveloper" class="col-sm-2 col-form-label">Zoom</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputDeveloper" value="@Model.ZoomId">
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Salvar" class="btn btn-default" />
+        <input type="button" value="Cancelar" class="btn btn-default" onClick="history.go(-1)" />
+      </div>
+    </div>
+  </div>
+</form>

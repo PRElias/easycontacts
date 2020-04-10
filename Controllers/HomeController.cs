@@ -1,42 +1,39 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using easycontacts.Models;
-using LiteDB;
-
+using easycontacts.Repositories;
 
 namespace easycontacts.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index([FromServices] IDatabase db)
         {
-            using (var db = new LiteDatabase(@"contact.db"))
-            {
-                var contacts = db.GetCollection<ContactList>("contacts");
-
-                return View(contacts);
-            }
+            return View(db.FindAll());
         }
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
-            using (var db = new LiteDatabase(@"contact.db"))
-            {
-                var contacts = db.GetCollection<ContactList>("contacts");
-                var newContact = new Contact();
-                newContact.Id = new Guid();
-                newContact.Name = "Paulo";
-                contacts.Insert(con)
+            return View();
+        }
 
-                return View(contacts);
-            }
+        [HttpPost]
+        public IActionResult Create(Contact contact, [FromServices] IDatabase db)
+        {
+            db.Insert(contact);
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Details(int id, [FromServices] IDatabase db)
+        {
+            Contact contact = db.FindOne(id);
+            return View(contact);
         }
     }
 }

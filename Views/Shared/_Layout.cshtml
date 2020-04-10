@@ -16,6 +16,8 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome-free-5.9.0-web/css/all.css" />
+    <script src="~/lib/fontawesome-free-5.9.0-web/js/all.js"></script>
 </head>
 <body>
     <header>
@@ -26,7 +28,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                @* <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -35,7 +37,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                </div>
+                </div> *@
             </div>
         </nav>
     </header>
@@ -48,7 +50,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - easycontacts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a href="https://paulorobertoelias.com.br"></a>&copy; 2020 - Paulo Roberto Elias</a>
         </div>
     </footer>
 
@@ -73,5 +75,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 </body>
 </html>

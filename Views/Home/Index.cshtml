@@ -1,32 +1,40 @@
-﻿@{
+﻿@model IEnumerable<Contact>
+    @using Microsoft.Extensions.Configuration
+    @inject IConfiguration Configuration
+
+    @{
     ViewData["Title"] = "Home Page";
-}
+    }
 
-@model easycontacts.Models.ContactList
+    <h1>Contatos</h1>
+    <a asp-area="" asp-controller="Home" asp-action="Create">Novo</a>
+    <table class="table" id="contactsTable">
+        <thead>
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Foto
+                </th>
+                <th>
+                    Links
+                </th>
+                <th>
+                    Ações
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                string showPhone = "block", showSkype = "block", showFacebook = "block", showYoutube = "block";
+                
+                if (string.IsNullOrEmpty(contact.Phone)){showPhone = " none";};
+                if (string.IsNullOrEmpty(contact.Skype)){showSkype = " none";};
+                if (string.IsNullOrEmpty(contact.Facebook)){showFacebook = " none";};
+                if (string.IsNullOrEmpty(contact.Youtube)){showYoutube = " none";};
 
-<h1>Contatos</h1>
-
-<table class="table" id="contactsTable">
-    <thead>
-        <tr>
-            <th>
-                Nome
-            </th>
-
-            <th>
-                Foto
-            </th>
-            <th>
-                Conversar
-            </th>
-            <th>
-                Ações
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var contact in Model.Contacts)
-        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => contact.Name)
@@ -35,29 +43,38 @@
                     <img data-src="@Url.Content(contact.Photo)" class="img-fluid img-max lazy" />
                 </td>
                 <td>
-                    <a href='@ViewData["whatsappAPIURL"] + @contact.Phone' target="_blank">
-                        <span style="color: green;">
-                            <i class="fab fa-whatsapp"></i>
-                        </span>
-                    </a>
-                    <a href='@ViewData["SkypeURL"].ToString().Replace("#", @contact.Skype)' target="_blank">
-                        <span style="color: blue;">
-                            <i class="fab fa-skype"></i>
-                        </span>
-                    </a>
+                    <div>
+                        <a href='@Configuration["whatsappAPIURL"]@contact.Phone' target="_blank" style="display: @showPhone">
+                            <span style="color: green;">
+                                <i class="fab fa-whatsapp"></i>
+                            </span>
+                        </a>
+                        <a href='@Configuration["SkypeURL"].ToString().Replace("#", @contact.Skype)' target="_blank" style="display: @showSkype">
+                            <span style="color: blue;">
+                                <i class="fab fa-skype"></i>
+                            </span>
+                        </a>
+                        <a href='@Configuration["FacebookURL"].ToString().Replace("#", @contact.Facebook)' target="_blank" style="display: @showFacebook">
+                            <span style="color: blue;">
+                                <i class="fab fa-facebook"></i>
+                            </span>
+                        </a>
+                        <a href='@Configuration["FacebookURL"].ToString().Replace("#", @contact.Youtube)' target="_blank" style="display: @showYoutube">
+                            <span style="color: blue;">
+                                <i class="fab fa-youtube"></i>
+                            </span>
+                        </a>
+                    </div>
                 </td>
                 <td>
-                    <a asp-action="Detalhes" asp-route-id="@contact.Id">
+                    <a asp-action="Details" asp-route-id="@contact.Id">
                         <span>
                             <i class="far fa-edit"></i>
                         </span>
                     </a>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
-
-
-
-@* <textarea id="text-teste" onclick="trypaste()"></textarea> *@
+            }
+        </tbody>
+    </table>
+    @* <textarea id="text-teste" onclick="trypaste()"></textarea> *@

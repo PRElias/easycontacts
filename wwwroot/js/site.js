@@ -5,5 +5,15 @@
 const text = await navigator.clipboard.readText();
 
 function trypaste() {
-    document.getElementById("text-teste").text = text;
+    document.getElementById("new-chat").text = text;
 }
+
+$(document).ready( function () {
+    $('#contactsTable').DataTable({
+        pageLength: 50,
+        drawCallback: function(){
+            $("img.lazy").Lazy();
+       }
+        // https://datatables.net/reference/option/
+    });
+} );
