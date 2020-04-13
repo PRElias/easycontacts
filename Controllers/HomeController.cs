@@ -7,7 +7,7 @@ namespace easycontacts.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index([FromServices] IDatabase db)
+        public IActionResult Index([FromServices] ContactRepository db)
         {
             return View(db.FindAll());
         }
@@ -18,7 +18,7 @@ namespace easycontacts.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Create(Contact contact, [FromServices] IDatabase db)
+        public IActionResult Create(Contact contact, [FromServices] ContactRepository db)
         {
             db.Upsert(contact);
             return RedirectToAction("Index");
@@ -30,14 +30,14 @@ namespace easycontacts.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Edit(int id, [FromServices] IDatabase db)
+        public IActionResult Edit(int id, [FromServices] ContactRepository db)
         {
             Contact contact = db.FindOne(id);
             return View(contact);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Edit(Contact contact, [FromServices] IDatabase db)
+        public IActionResult Edit(Contact contact, [FromServices] ContactRepository db)
         {
             db.Upsert(contact);
             return RedirectToAction("Index");

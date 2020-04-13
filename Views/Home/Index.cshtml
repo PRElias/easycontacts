@@ -1,86 +1,91 @@
 ﻿@model IEnumerable<Contact>
-    @using Microsoft.Extensions.Configuration
-    @inject IConfiguration Configuration
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
-    @{
+@{
     ViewData["Title"] = "Home Page";
-    }
+}
 
-    <h1>Contatos</h1>
-    <a asp-area="" asp-controller="Home" asp-action="Create">Novo</a>
-    <table class="table" id="contactsTable">
-        <thead>
-            <tr>
-                <th>
-                    Nome
-                </th>
-                <th>
-                    Foto
-                </th>
-                <th>
-                    Links
-                </th>
-                <th>
-                    Ações
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contact in Model)
-            {
-                string showPhone = "block", showSkype = "block", showFacebook = "block", showYoutube = "block", showEmail = "block";
-                
-                if (string.IsNullOrEmpty(contact.Phone)){showPhone = " none";};
-                if (string.IsNullOrEmpty(contact.Skype)){showSkype = " none";};
-                if (string.IsNullOrEmpty(contact.Facebook)){showFacebook = " none";};
-                if (string.IsNullOrEmpty(contact.Youtube)){showYoutube = " none";};
-                if (string.IsNullOrEmpty(contact.Email)){showEmail = " none";};
+<h1>Contatos</h1>
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => contact.Name)
-                </td>
-                <td>
-                    <img data-src="@Url.Content(contact.Photo)" class="img-fluid img-max lazy" />
-                </td>
-                <td>
-                    <div>
-                        <a href='@Configuration["whatsappAPIURL"]@contact.Phone' target="_blank" style="display: @showPhone">
-                            <span style="color: green;">
-                                <i class="fab fa-whatsapp"></i>
-                            </span>
-                        </a>
-                        <a href='@Configuration["SkypeURL"].ToString().Replace("#", @contact.Skype)' target="_blank" style="display: @showSkype">
-                            <span style="color: blue;">
-                                <i class="fab fa-skype"></i>
-                            </span>
-                        </a>
-                        <a href='@Configuration["FacebookURL"]@contact.Facebook' target="_blank" style="display: @showFacebook">
-                            <span style="color: blue;">
-                                <i class="fab fa-facebook"></i>
-                            </span>
-                        </a>
-                        <a href='@Configuration["YoutubeURL"]@contact.Youtube' target="_blank" style="display: @showYoutube">
-                            <span style="color: red;">
-                                <i class="fab fa-youtube"></i>
-                            </span>
-                        </a>
-                        <a href='mailto:@contact.Email' target="_blank" style="display: @showEmail">
-                            <span style="color: red;">
-                                <i class="fab fa-email"></i>
-                            </span>
-                        </a>
-                    </div>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@contact.Id">
-                        <span>
-                            <i class="far fa-edit"></i>
+<a asp-area="" asp-controller="Home" asp-action="Create">Novo</a>
+
+<table class="table" id="contactsTable">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+            <th>
+                Foto
+            </th>
+            <th>
+                Links
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model)
+        {
+            string showPhone = "block", showSkype = "block", showFacebook = "block", showYoutube = "block", showEmail = "block";
+            
+            if (string.IsNullOrEmpty(contact.Phone)){showPhone = " none";};
+            if (string.IsNullOrEmpty(contact.Skype)){showSkype = " none";};
+            if (string.IsNullOrEmpty(contact.Facebook)){showFacebook = " none";};
+            if (string.IsNullOrEmpty(contact.Youtube)){showYoutube = " none";};
+            if (string.IsNullOrEmpty(contact.Email)){showEmail = " none";};
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => contact.Name)
+            </td>
+            <td>
+                <img data-src="@Url.Content(contact.Photo)" class="img-fluid img-max lazy" />
+            </td>
+            <td>
+                <div>
+                    <a href='@Configuration["whatsappAPIURL"]@contact.Phone' target="_blank" style="display: @showPhone">
+                        <span style="color: green;">
+                            <i class="fab fa-whatsapp"></i>
                         </span>
                     </a>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-    @* <textarea id="text-teste" onclick="trypaste()"></textarea> *@
+                    <a href='@Configuration["SkypeURL"].ToString().Replace("#", @contact.Skype)' target="_blank" style="display: @showSkype">
+                        <span style="color: blue;">
+                            <i class="fab fa-skype"></i>
+                        </span>
+                    </a>
+                    <a href='@Configuration["FacebookURL"]@contact.Facebook' target="_blank" style="display: @showFacebook">
+                        <span style="color: blue;">
+                            <i class="fab fa-facebook"></i>
+                        </span>
+                    </a>
+                    <a href='@Configuration["YoutubeURL"]@contact.Youtube' target="_blank" style="display: @showYoutube">
+                        <span style="color: red;">
+                            <i class="fab fa-youtube"></i>
+                        </span>
+                    </a>
+                    <a href='mailto:@contact.Email' target="_blank" style="display: @showEmail">
+                        <span style="color: black;">
+                            <i class="fas fa-at"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@contact.Id">
+                    <span>
+                        <i class="far fa-edit"></i>
+                    </span>
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@* <textarea id="text-teste" onclick="trypaste()"></textarea> *@
+
+@section Scripts {
+     <script type="text/javascript" src="~/js/contact.js"></script>
+}

@@ -28,7 +28,7 @@ namespace easycontacts
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSingleton<IDatabase, Database>();
+            services.AddSingleton<ContactRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

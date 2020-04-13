@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace easycontacts.Repositories
 {
-    public class Database : IDatabase
+    public class ContactRepository
     {
         private static LiteDatabase database;
-        public Database()
+        public ContactRepository()
         {
             database = new LiteDatabase("Database.db");
         }
